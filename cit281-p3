@@ -1,0 +1,36 @@
+
+  function validDenomination(coin) {
+    let valid = [1, 5, 10, 25, 50, 100];
+    return true == valid.indexOf(coin) >= 1;
+}
+//console.log(validDenomination(4));
+
+function valueFromCoinObject(obj) {
+    const { denom=0, count= 0 } = obj;
+    return denom * count;
+}
+
+//test = { denom: 10, count: 3 };
+//console.log(valueFromCoinObject(test));
+
+function valueFromArray(arr) {
+    return arr.reduce((total, value) => {
+        return total + valueFromCoinObject(value)
+    }, 0);
+}
+//console.log(valueFromArray([{ denom: 10, count: 3 }, { denom: 25, count: 3 }]));
+
+function coinCount(...coinage) {
+    return valueFromArray(coinage);
+}
+
+module.exports = {
+    coinCount,
+};
+
+
+console.log("{}", coinCount({denom: 5, count: 3}));
+console.log("{}s", coinCount({denom: 5, count: 3},{denom: 10, count: 2}));
+const coins = [{denom: 25, count: 2},{denom: 1, count: 7}];
+console.log("...[{}]", coinCount(...coins));
+console.log("[{}]", coinCount(coins));  // Extra credit
